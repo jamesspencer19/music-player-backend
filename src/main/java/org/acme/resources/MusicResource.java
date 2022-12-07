@@ -18,7 +18,7 @@ public class MusicResource {
     MusicRepository musicrepository;
 
     @GET
-    @Path("/getlibrary")
+    @Path("/library")
     @Transactional
     public Response getLibrary(){
         return Response.ok(musicrepository.listAll()).build();
