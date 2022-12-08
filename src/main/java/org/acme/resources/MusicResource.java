@@ -19,8 +19,13 @@ public class MusicResource {
 
     @GET
     @Path("/library")
-    @Transactional
     public Response getLibrary(){
         return Response.ok(musicrepository.listAll()).build();
+    }
+
+    @GET
+    @Path("/song/{id}")
+    public Response getSongById(@PathParam("id") int id){
+        return Response.ok(musicrepository.find("id",id).firstResult()).build();
     }
 }
