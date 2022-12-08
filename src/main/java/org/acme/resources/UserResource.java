@@ -23,7 +23,7 @@ public class UserResource {
     @Path("/signup")
     @Transactional
     public Response createUser(User user){
-        if (userRepository.find("username", user.getUsername())!=null) {
+        if (userRepository.find("username", user.getUsername()).firstResult()==null) {
             userRepository.persist(user);
             return Response.ok(user).build();
         }else {
