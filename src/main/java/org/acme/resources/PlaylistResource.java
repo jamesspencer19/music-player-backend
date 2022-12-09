@@ -36,5 +36,18 @@ public class PlaylistResource {
         }
     }
 
+    @PATCH
+    @Path("/deletesong")
+    @Transactional
+    public Response deleteSong(Playlist playlist){
+        Playlist entity = playlistRepository.find("username", playlist.getUsername()).firstResult();
+        if(entity==null) {
+            return Response.ok().build();
+        }
+        entity.songids = playlist.songids;
+        playlistRepository.persist(entity);
+        return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
+    }
+
 
 }
