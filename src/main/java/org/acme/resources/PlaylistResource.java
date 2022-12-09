@@ -32,12 +32,16 @@ public class PlaylistResource {
 
     @GET
     @Path("/getplaylist/{username}")
+    @Transactional
     public Response getPlaylist(@PathParam("username") String username){
         if (playlistRepository.find("username", username).firstResult()!=null) {
             return Response.ok(playlistRepository.find("username", username).firstResult()).build();
         }
         else{
-            return Response.ok().build();
+            Playlist playlist = new Playlist();
+            playlist.setUsername(username);
+            playlistRepository.persist(playlist);
+            return Response.ok(playlistRepository.find("username", username).firstResult()).build();
         }
     }
 
