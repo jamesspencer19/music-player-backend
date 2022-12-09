@@ -17,12 +17,17 @@ public class PlaylistResource {
     @Inject
     PlaylistRepository playlistRepository;
 
-    @POST
-    @Path("/addplaylist")
+    @PATCH
+    @Path("/editplaylist")
     @Transactional
     public Response addPlaylist(Playlist playlist){
-        playlistRepository.persist(playlist);
-        return Response.ok(playlist).build();
+        Playlist entity = playlistRepository.find("username", playlist.getUsername()).firstResult();
+        if(entity==null) {
+            return Response.ok().build();
+        }
+        entity.songids = playlist.songids;
+        playlistRepository.persist(entity);
+        return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
     }
 
     @GET
@@ -35,19 +40,5 @@ public class PlaylistResource {
             return Response.ok().build();
         }
     }
-
-    @PATCH
-    @Path("/deletesong")
-    @Transactional
-    public Response deleteSong(Playlist playlist){
-        Playlist entity = playlistRepository.find("username", playlist.getUsername()).firstResult();
-        if(entity==null) {
-            return Response.ok().build();
-        }
-        entity.songids = playlist.songids;
-        playlistRepository.persist(entity);
-        return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
-    }
-
 
 }
