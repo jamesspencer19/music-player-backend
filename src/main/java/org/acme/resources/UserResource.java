@@ -35,13 +35,12 @@ public class UserResource {
     @Path("/login")
     public Response loginUser(User user){
         User userrequest = userRepository.find("username", user.getUsername()).firstResult();
-        if (userrequest == null){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        else if (userrequest.getPassword().equals(user.getPassword())){
+        if (userrequest.getPassword().equals(user.getPassword())){
             return Response.ok(userrequest).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package org.acme.resources;
 
+import org.acme.entity.Music;
 import org.acme.entity.User;
 import org.acme.repository.MusicRepository;
 
@@ -26,6 +27,10 @@ public class MusicResource {
     @GET
     @Path("/song/{id}")
     public Response getSongById(@PathParam("id") int id){
-        return Response.ok(musicrepository.find("id",id).firstResult()).build();
+        Music music = musicrepository.find("id",id).firstResult();
+        if(musicrepository.find("id",id).firstResult() != null){
+            return Response.ok(musicrepository.find("id",id).firstResult()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

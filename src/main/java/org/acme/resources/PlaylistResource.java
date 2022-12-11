@@ -22,27 +22,27 @@ public class PlaylistResource {
     @Transactional
     public Response addPlaylist(Playlist playlist){
         Playlist entity = playlistRepository.find("username", playlist.getUsername()).firstResult();
-        if(entity==null) {
-            return Response.ok().build();
+        if(entity!=null) {
+            entity.songids = playlist.songids;
+            playlistRepository.persist(entity);
+            return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        entity.songids = playlist.songids;
-        playlistRepository.persist(entity);
-        return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
     }
 
     @GET
     @Path("/getplaylist/{username}")
     @Transactional
     public Response getPlaylist(@PathParam("username") String username){
-        if (playlistRepository.find("username", username).firstResult()!=null) {
-            return Response.ok(playlistRepository.find("username", username).firstResult()).build();
-        }
-        else{
+        Playlist entitiy = playlistRepository.find("username", username).firstResult();
+        if (entitiy==null) {
             Playlist playlist = new Playlist();
             playlist.setUsername(username);
             playlistRepository.persist(playlist);
             return Response.ok(playlistRepository.find("username", username).firstResult()).build();
         }
+        return Response.ok(entitiy).build();
     }
 
 }
