@@ -18,6 +18,14 @@ public class MusicResource {
     @Inject
     MusicRepository musicrepository;
 
+    @POST
+    @Transactional
+    @Path("/savesong")
+    public Response saveSong(Music music){
+        musicrepository.persist(music);
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/library")
     public Response getLibrary(){
