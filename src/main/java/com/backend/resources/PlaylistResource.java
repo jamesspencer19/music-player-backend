@@ -1,8 +1,7 @@
-package org.acme.resources;
+package com.backend.resources;
 
-import org.acme.entity.Playlist;
-import org.acme.entity.User;
-import org.acme.repository.PlaylistRepository;
+import com.backend.repository.PlaylistRepository;
+import com.backend.entity.Playlist;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -16,6 +15,8 @@ import javax.ws.rs.core.Response;
 public class PlaylistResource {
     @Inject
     PlaylistRepository playlistRepository;
+
+    Playlist entity = new Playlist();
 
     @PATCH
     @Path("/editplaylist")
@@ -35,14 +36,14 @@ public class PlaylistResource {
     @Path("/getplaylist/{username}")
     @Transactional
     public Response getPlaylist(@PathParam("username") String username){
-        Playlist entitiy = playlistRepository.find("username", username).firstResult();
-        if (entitiy==null) {
+        entity = playlistRepository.find("username", username).firstResult();
+        if (entity==null) {
             Playlist playlist = new Playlist();
             playlist.setUsername(username);
             playlistRepository.persist(playlist);
             return Response.ok(playlistRepository.find("username", username).firstResult()).build();
         }
-        return Response.ok(entitiy).build();
+        return Response.ok(entity).build();
     }
 
 }

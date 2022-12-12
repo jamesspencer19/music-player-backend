@@ -1,5 +1,6 @@
-package org.acme.entity;
+package com.backend.entity;
 
+import com.backend.resources.MusicResource;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;

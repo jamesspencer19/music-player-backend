@@ -1,15 +1,12 @@
-package org.acme.resources;
-import antlr.ASTFactory;
-import org.acme.entity.User;
-import org.acme.repository.UserRepository;
+package com.backend.resources;
+import com.backend.entity.User;
+import com.backend.repository.UserRepository;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Optional;
 
 @Path("/authentication")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -18,6 +15,8 @@ public class UserResource {
 
     @Inject
     UserRepository userRepository;
+
+    User entity = new User();
 
     @POST
     @Path("/signup")
@@ -34,9 +33,9 @@ public class UserResource {
     @POST
     @Path("/login")
     public Response loginUser(User user){
-        User userrequest = userRepository.find("username", user.getUsername()).firstResult();
-        if (userrequest.getPassword().equals(user.getPassword())){
-            return Response.ok(userrequest).build();
+        entity = userRepository.find("username", user.getUsername()).firstResult();
+        if (entity.getPassword().equals(user.getPassword())){
+            return Response.ok(entity).build();
         }
         else{
             return Response.status(Response.Status.NOT_FOUND).build();

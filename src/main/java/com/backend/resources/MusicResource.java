@@ -1,8 +1,7 @@
-package org.acme.resources;
+package com.backend.resources;
 
-import org.acme.entity.Music;
-import org.acme.entity.User;
-import org.acme.repository.MusicRepository;
+import com.backend.entity.Music;
+import com.backend.repository.MusicRepository;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,6 +16,8 @@ public class MusicResource {
 
     @Inject
     MusicRepository musicrepository;
+
+    Music entity = new Music();
 
     @POST
     @Transactional
@@ -35,7 +36,7 @@ public class MusicResource {
     @GET
     @Path("/song/{id}")
     public Response getSongById(@PathParam("id") int id){
-        Music music = musicrepository.find("id",id).firstResult();
+        entity = musicrepository.find("id",id).firstResult();
         if(musicrepository.find("id",id).firstResult() != null){
             return Response.ok(musicrepository.find("id",id).firstResult()).build();
         }

@@ -7,9 +7,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.acme.entity.Playlist;
-import org.acme.repository.PlaylistRepository;
-import org.h2.util.json.JSONObject;
+import com.backend.entity.Playlist;
+import com.backend.repository.PlaylistRepository;
 import org.junit.jupiter.api.*;
 
 import javax.inject.Inject;

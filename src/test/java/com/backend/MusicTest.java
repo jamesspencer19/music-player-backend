@@ -7,16 +7,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.acme.entity.Music;
-import org.acme.entity.Playlist;
-import org.acme.repository.MusicRepository;
-import org.acme.resources.MusicResource;
+import com.backend.entity.Music;
 import org.junit.jupiter.api.*;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 

@@ -1,4 +1,4 @@
-package org.acme.entity;
+package com.backend.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

@@ -5,15 +5,14 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.acme.entity.User;
-import org.acme.repository.UserRepository;
+import com.backend.entity.User;
+import com.backend.repository.UserRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 
 import static io.restassured.RestAssured.given;
 
