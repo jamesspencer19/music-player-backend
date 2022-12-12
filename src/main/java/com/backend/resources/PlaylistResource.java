@@ -18,6 +18,7 @@ public class PlaylistResource {
 
     Playlist entity = new Playlist();
 
+    //Edit playlist and append changes to database
     @PATCH
     @Path("/editplaylist")
     @Transactional
@@ -27,16 +28,20 @@ public class PlaylistResource {
             entity.songids = playlist.songids;
             playlistRepository.persist(entity);
             return Response.ok(playlistRepository.find("username", playlist.getUsername()).firstResult()).build();
-        }else{
+        }
+        //if playlist does not exist return 404
+        else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
+    //Retrieve playlist using username
     @GET
     @Path("/getplaylist/{username}")
     @Transactional
     public Response getPlaylist(@PathParam("username") String username){
         entity = playlistRepository.find("username", username).firstResult();
+        //if playlist does not exist create one
         if (entity==null) {
             Playlist playlist = new Playlist();
             playlist.setUsername(username);

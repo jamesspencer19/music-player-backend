@@ -21,6 +21,7 @@ public class MusicTest {
 
     Music music = new Music();
 
+    //Add 10 songs to the music database and verify that all ten are retrieved
     @Test
     @TestTransaction
     @Order(1)
@@ -41,6 +42,7 @@ public class MusicTest {
         }
     }
 
+    //Retrieve a song using song ID assert that the values match
     @Test
     @TestTransaction
     @Order(2)
@@ -53,6 +55,7 @@ public class MusicTest {
         assert musicResponse.getImagepath().equals("ImagePath0");
     }
 
+    //Retrieve song using invalid ID return Status 404 Not Found
     @Test
     @TestTransaction
     @Order(3)

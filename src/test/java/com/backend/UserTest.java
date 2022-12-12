@@ -26,6 +26,7 @@ public class UserTest {
 
     User user = new User();
 
+    //Create a user and check that the credentials match those that have been saved to the Database
     @Test
     @TestTransaction
     @Order(1)
@@ -37,14 +38,17 @@ public class UserTest {
         assert userRepository.find("username", user.getUsername()).firstResult().getPassword().equals(user.getPassword());
     }
 
+    //Test to create a user with a username that has already been used return Status 403
     @Test
     @TestTransaction
     @Order(2)
     void createDuplicateUser(){
         testCreateUser();
+        System.out.println("Status Code: " + given().contentType(ContentType.JSON).body(user).when().post("/authentication/signup").statusCode());
         assert given().contentType(ContentType.JSON).body(user).when().post("/authentication/signup").statusCode() == 403;
     }
 
+    //Login with correct details to return Status Code 200
     @Test
     @TestTransaction
     @Order(3)
@@ -53,6 +57,7 @@ public class UserTest {
         assert given().contentType(ContentType.JSON).body(user).when().post("/authentication/login").statusCode() == 200;
     }
 
+    //Login with incorrect details returns Status Code 404 Not Found
     @Test
     @TestTransaction
     @Order(4)

@@ -19,6 +19,7 @@ public class MusicResource {
 
     Music entity = new Music();
 
+    //Endpoint used to save a song to the Database
     @POST
     @Transactional
     @Path("/savesong")
@@ -27,12 +28,14 @@ public class MusicResource {
         return Response.ok().build();
     }
 
+    //Method to retrieve all songs from Database
     @GET
     @Path("/library")
     public Response getLibrary(){
         return Response.ok(musicrepository.listAll()).build();
     }
 
+    //Method to retrieve song by ID from database
     @GET
     @Path("/song/{id}")
     public Response getSongById(@PathParam("id") int id){
