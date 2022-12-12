@@ -40,7 +40,7 @@ public class PlaylistTest {
     @Order(1)
     void getBlankPlaylist(){
         given().when().get("/playlist/getplaylist/" + "jamestest");
-        assert playlistRepository.find("username", "jamestest").firstResult().getUsername().equals("jamestest");
+        assert playlistRepository.find("username", "jamestest").firstResult().getSongids() == null;
     }
 
     @Test
